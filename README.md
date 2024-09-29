@@ -58,7 +58,7 @@ Below are the main API endpoints for the application:
 
 - **200 OK**: "Request added to queue with priority: X"
 
-## Testing the application (Bash & Powershell)
+## Testing the application (Unix/Bash & Powershell)
 
 - Use the following curl commands to test different scenarios **(bash)**:
 
