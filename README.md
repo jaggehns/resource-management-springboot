@@ -154,3 +154,5 @@ src/
 - **Validation Improvements**: Enhance the validation logic to handle a wider range of invalid inputs more gracefully.
   
 - **Logging**: Integrate proper logging instead of System.out.println to make debugging and monitoring easier.
+
+- **Testing**: Add unit and integrations tests
