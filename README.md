@@ -65,7 +65,7 @@ Below are the main API endpoints for the application:
   ### 1. Send Sequential Requests with the same Priority Levels
 
   ```bash
-   # Sequential requests with random priority levels (0-9)
+   # Send 10 sequential requests with the same priority level (priority 5)
    for i in {1..10}; do curl "http://localhost:8080/api/resource/access?priority=5" & done
   ```
 
