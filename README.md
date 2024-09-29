@@ -45,7 +45,7 @@ This is a simple **Resource Management application** built using Java Spring Boo
 
 Below are the main API endpoints for the application:
 
-- **GET** `/api/resource/access`: Adds a request to access the resource with a given priority. If no priority is specified, it defaults to `1`.
+- **GET** `/api/resource/access?priority={priority}`: Adds a request to access the resource with a given priority. If no priority is specified, it defaults to `1`.
 
 ### Request Parameters:
 - `priority` (optional): Integer value representing the request's priority (default: 1).
@@ -92,6 +92,23 @@ Below are the main API endpoints for the application:
 
 # Send 5 high-priority requests (priority 10)
 1..5 | ForEach-Object { Start-Process -NoNewWindow -FilePath "curl" -ArgumentList "http://localhost:8080/api/resource/access?priority=10" }
+```
+
+# Expected Log Outputs
+
+## Viewing Logs
+
+- To see the logs, simply run the application and observe the console output.
+
+```bash
+Request received with priority: 1
+Request received with priority: 10
+Request received with priority: 5
+Request #1 processed at 1727610146 sec, priority: 10
+Request #2 processed at 1727610148 sec, priority: 10
+Request #3 processed at 1727610150 sec, priority: 10
+Request #4 processed at 1727610152 sec, priority: 5
+Request #5 processed at 1727610154 sec, priority: 1
 ```
  
 # Repository Structure
