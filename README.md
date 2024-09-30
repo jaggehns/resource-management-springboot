@@ -142,7 +142,7 @@ src/
 
 - **Thread Management**: The application now uses `ExecutorService` instead of a manually managed thread. This is a more robust and scalable solution for production-level code.
   
-- **Synchronized Methods Removed**: With ExecutorService handling the thread management, the synchronized keyword is no longer necessary, as the queue operations and resource handling are controlled by the single-thread executor.
+- **Synchronized Methods Removed**: With `ExecutorService` handling the thread management, the synchronized keyword is no longer necessary, as the queue operations and resource handling are controlled by the single-thread executor.
   
 - **BlockingQueue**: The PriorityBlockingQueue is used to manage the requests, allowing higher-priority requests to be processed first.
 
