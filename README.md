@@ -140,19 +140,19 @@ src/
 ```
 ## Explanation and Justifications
 
-- **Thread Management**: The application uses a Thread manually to keep things simple. However, for production-level applications, it is recommended to use ExecutorService for better thread management and scalability.
-
-- **Synchronized Methods**: The addRequest() method is marked as synchronized to ensure that multiple threads cannot add requests concurrently, avoiding potential race conditions.
-
+- **Thread Management**: The application now uses `ExecutorService` instead of a manually managed thread. This is a more robust and scalable solution for production-level code.
+  
+- **Synchronized Methods Removed**: With ExecutorService handling the thread management, the synchronized keyword is no longer necessary, as the queue operations and resource handling are controlled by the single-thread executor.
+  
 - **BlockingQueue**: The PriorityBlockingQueue is used to manage the requests, allowing higher-priority requests to be processed first.
+
+- **No Database**: A database was not used because the focus of the project is on concurrency and priority handling, which is more effectively demonstrated without the overhead of a database.
 
 
 ## Future Work
 
-- **Refactor Thread Management**: Switch from manual thread management to ExecutorService to improve the scalability of the application.
-
 - **Validation Improvements**: Enhance the validation logic to handle a wider range of invalid inputs more gracefully.
   
-- **Logging**: Integrate proper logging instead of System.out.println to make debugging and monitoring easier.
+- **Logging**: Integrate proper logging instead of `System.out.println` to make debugging and monitoring easier.
 
 - **Testing**: Add unit and integrations tests
