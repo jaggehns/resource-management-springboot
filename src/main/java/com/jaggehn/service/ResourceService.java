@@ -8,6 +8,9 @@ import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ResourceService {
@@ -15,26 +18,27 @@ public class ResourceService {
     private final BlockingQueue<AccessRequest> requestQueue = new PriorityBlockingQueue<>(
             10, Comparator.comparingInt(AccessRequest::getPriority).reversed());
 
-    private Thread workerThread;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @PostConstruct
     public void startProcessing() {
-        // Manually managing the thread to keep it simple
-        // Better to use ExecutorService for production
-        workerThread = new Thread(new ResourceProcessorRunnable(requestQueue));
-        workerThread.setDaemon(true);
-        workerThread.start();
+        executorService.submit(new ResourceProcessorRunnable(requestQueue));
     }
 
-    // So only one thread can execute at a time
-    public synchronized void addRequest(int priority) {
+    public void addRequest(int priority) {
         requestQueue.offer(new AccessRequest(priority));
         System.out.println("Request received with priority: " + priority);
     }
 
     public void stopProcessing() {
-        if (workerThread != null && workerThread.isAlive()) {
-            workerThread.interrupt();
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }

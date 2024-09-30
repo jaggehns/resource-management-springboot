@@ -16,7 +16,7 @@ public class ResourceProcessorRunnable implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 AccessRequest request = requestQueue.take();
                 waitForNextSlot();
@@ -38,8 +38,7 @@ public class ResourceProcessorRunnable implements Runnable {
         }
     }
 
-    // So only one thread can execute at a time
-    private synchronized void processCurrentRequest(AccessRequest request) {
+    private void processCurrentRequest(AccessRequest request) {
         lastAccessTime = System.currentTimeMillis();
         processedCounter++;
         System.out.println("Request #" + processedCounter + " processed at " +
