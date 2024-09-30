@@ -144,7 +144,7 @@ src/
   
 - **Synchronized Methods Removed**: With `ExecutorService` handling the thread management, the synchronized keyword is no longer necessary, as the queue operations and resource handling are controlled by the single-thread executor.
   
-- **BlockingQueue**: The PriorityBlockingQueue is used to manage the requests, allowing higher-priority requests to be processed first.
+- **BlockingQueue**: The `PriorityBlockingQueue` is used to manage the requests, allowing higher-priority requests to be processed first.
 
 - **No Database**: A database was not used because the focus of the project is on concurrency and priority handling, which is more effectively demonstrated without the overhead of a database.
 
